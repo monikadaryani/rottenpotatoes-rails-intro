@@ -11,7 +11,7 @@ class MoviesController < ApplicationController
   end
 
   def index
-    columnName = params[:column_name]
+    columnName = params[:sort]
     columnName||='release_date'
     
     @movies = Movie.order(columnName)
