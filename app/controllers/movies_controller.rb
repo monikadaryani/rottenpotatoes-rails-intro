@@ -44,6 +44,7 @@ class MoviesController < ApplicationController
   
   def sort_columns
     columnName = params[:column_name]
+      
     @movies = Movie.order(columnName)
   end
 
