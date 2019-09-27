@@ -3,8 +3,8 @@ module MoviesHelper
   def oddness(count)
     count.odd? ?  "odd" :  "even"
   end
-  def helper_class(field)
-        if(params[:sort].to_s == field)
+  def make_yellow(input)
+        if(params[:sort_by].to_s == input)
             return 'hilite'
         else
             return nil
