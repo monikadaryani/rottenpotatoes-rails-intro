@@ -4,9 +4,9 @@
 %table#movies.table.table-striped.col-md-12
   %thead
     %tr
-      %th{:class => helper_class('title') }= link_to "Movie Title", movies_path(:sort=>'title'), {:id => 'title_header'} 
+      %th{:class => make_yellow_class('title') }= link_to "Movie Title", movies_path(:sort=>'title'), {:id => 'title_header'} 
       %th Rating
-      %th{:class => helper_class('release_date') }= link_to "Release Date", movies_path(:sort=>'release_date'), {:id => 'release_date_header'}
+      %th= link_to "Release Date", movies_path(:sort=>'release_date'),make_yellow_class('release_date'), {:id => 'release_date_header'}
       %th More Info
   %tbody
     - @movies.each do |movie|
