@@ -17,7 +17,7 @@ class MoviesController < ApplicationController
     @all_ratings=Movie.uniq.pluck(:rating)
     @ratings_selected = params[:ratings]
     if(@ratings_selected)
-      puts("hi")
+      puts("ratings were selected already wow #{@ratings_selected}")
       @ratings_selected_keys = @ratings_selected.keys
     end
     
