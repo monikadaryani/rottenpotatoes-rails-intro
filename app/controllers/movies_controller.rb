@@ -12,10 +12,12 @@ class MoviesController < ApplicationController
 
   def index
     columnName = params[:sort]
+    puts(columnName)
     @movies = Movie.order(columnName)
     @all_ratings=Movie.uniq.pluck(:rating)
     @ratings_selected = params[:ratings]
     if(@ratings_selected)
+      puts("hi")
       @ratings_selected_keys = @ratings_selected.keys
     end
     
