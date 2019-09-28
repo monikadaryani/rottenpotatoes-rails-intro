@@ -22,7 +22,7 @@ class MoviesController < ApplicationController
     #Below is default ratings(ie:all)
     @ratings_selected_keys||=@all_ratings
     
-    @movies = Movie.where(rating: @ratings_selected_keys).order(columnName + " " + sort_direction)
+    @movies = Movie.where(rating: @ratings_selected_keys).order(columnName)
     
   end
 
