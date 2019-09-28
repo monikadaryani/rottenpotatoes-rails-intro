@@ -13,6 +13,18 @@ class MoviesController < ApplicationController
   def index
     columnName = params[:sort]
     @movies = Movie.order(columnName)
+    index method
+    @all_ratings=Movie.uniq.pluck(:rating)
+    @ratings_selected = params[:ratings]
+    if(@ratings_selected)
+      puts("ratings were selected already wow #{@ratings_selected}")
+      @ratings_selected_keys = @ratings_selected.keys
+    end
+    
+    #Below is default ratings(ie:all)
+    @ratings_selected_keys||=@all_ratings
+    
+    @movies = Movie.where(rating: @ratings_selected_keys).order(sort_column + " " + sort_direction)
     
   end
 
