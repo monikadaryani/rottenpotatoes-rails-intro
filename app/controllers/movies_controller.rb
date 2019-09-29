@@ -2,34 +2,40 @@ class MoviesController < ApplicationController
 
   def movie_params
     params.require(:movie).permit(:title, :rating, :description, :release_date)
+    
   end
 
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
+    
   end
 
   def index
     
-    column_name = params[:sort]
-    
-    @movies = Movie.order(column_name)
-    @all_ratings=Movie.uniq.pluck(:rating)
-    @ratings_selected = params[:ratings]
-    if(@ratings_selected)
-      @ratings_selected_keys = @ratings_selected.keys
+    if !params[:sort_by].nil?
+      session[:sort_by] = params[:sort_by]
+    end
+    if !params[:ratings].nil?
+      session[:ratings] = params[:ratings]
     end
     
-    #Below is default ratings(ie:all)
-    @ratings_selected_keys||=@all_ratings
-    
-    @movies = Movie.where(rating: @ratings_selected_keys).order(column_name)
+    column_name = session[:sort_by]
+    @all_ratings=Movie.uniq.pluck(:rating)
+    @selected_keys||=@all_ratings
+    @selected_rating = session[:ratings]
+    if(@selected_rating)
+      @selected_keys = @selected_rating.keys
+    end
+     
+    @movies = Movie.where(rating: @selected_keys).order(column_name)
     
   end
 
   def new
     # default: render 'new' template
+    
   end
 
   def create
@@ -54,6 +60,7 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+    
   end
   
 end
